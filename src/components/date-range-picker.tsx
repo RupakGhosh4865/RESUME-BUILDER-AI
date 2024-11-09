@@ -46,22 +46,17 @@ export function DatePickerWithRange({
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto p-0 h-[350px]" align="start">
+        <PopoverContent className="w-auto p-0 max-h-full" align="start">
           <Calendar
-            initialFocus
             mode="range"
             defaultMonth={date?.from}
             selected={date}
             onSelect={(range, selectedDay) => {
-              if (!range) return
-              if (!selectedDay) return
-
+              if (!range || !selectedDay) return;
               if (!range.to) {
-                setDate({ from: selectedDay, to: addDays(selectedDay, 1) })
-              }
-
-              if (range.from !== undefined && range.to !== undefined) {
-                setDate(range)
+                setDate({ from: selectedDay, to: addDays(selectedDay, 1) });
+              } else {
+                setDate(range);
               }
             }}
             numberOfMonths={2}
